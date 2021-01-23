@@ -36,5 +36,5 @@ MongoClient.connect('mongodb://localhost:27017')
 
 // Run
 app.listen(3001, () => {
-  console.log(`Running on port ${this.address().port}`);
+  console.log(`Running on port 3001`);
 })
