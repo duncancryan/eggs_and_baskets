@@ -10,7 +10,6 @@ export default function EggList(props) {
     // Render
     return (
         <div>
-            <h2>Loose Eggs</h2>
             {eggNodes}
         </div>
     )

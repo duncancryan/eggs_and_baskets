@@ -34,6 +34,7 @@ export default class HomePage extends Component {
         return (
             <Fragment>
                 <div>
+                    <h2>Loose Eggs</h2>
                     <EggList eggs={this.state.eggs}/>
                 </div>
                 <div>
