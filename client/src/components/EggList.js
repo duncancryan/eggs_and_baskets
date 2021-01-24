@@ -26,18 +26,25 @@ export default class EggList extends Component {
         this.handleLowWeight = this.handleLowWeight.bind(this);
         this.handleLowDate = this.handleLowDate.bind(this);
         this.handleHighDate = this.handleHighDate.bind(this);
+        this.handleDragStart = this.handleDragStart.bind(this);
 
     }
 
     displayState(){
         const eggNodes = this.props.eggs.map(egg => {
-            return <EggItem collapsed={false} key={egg._id} weight={egg.weight} laid={egg.laid} />
+            return <div draggable="true" onDragStart={this.handleDragStart} key={egg._id} id={egg._id}>
+                    <EggItem collapsed={false} key={egg._id} weight={egg.weight} laid={egg.laid} />
+                </div>
         })
         const afterSort = this.state.sortedEggs.map(egg => {
-            return <EggItem collapsed={false} key={egg._id} weight={egg.weight} laid={egg.laid} />
+            return <div draggable="true" onDragStart={this.handleDragStart} key={egg._id} id={egg._id}>
+                    <EggItem   collapsed={false} key={egg._id} weight={egg.weight} laid={egg.laid} />
+                </div>
         })
         const weightFiltered = this.state.filteredEggs.map(egg => {
-            return <EggItem collapsed={false} key={egg._id} weight={egg.weight} laid={egg.laid} />
+            return <div draggable="true" onDragStart={this.handleDragStart} key={egg._id} id={egg._id}>
+                    <EggItem collapsed={false} key={egg._id} weight={egg.weight} laid={egg.laid} />
+                </div>
         })
         if (this.state.sorted && (!this.state.filteredByDate && !this.state.filteredByWeight)) {
             return afterSort;
@@ -46,6 +53,12 @@ export default class EggList extends Component {
             return weightFiltered;
         }
         return eggNodes;
+    }
+
+    handleDragStart(event){
+        const id = event.target.id;
+
+        this.props.DragStart(id);
     }
 
     sortByDateLaid(){

@@ -1,4 +1,6 @@
 import React, { Fragment, useState } from 'react';
+import styled from 'styled-components'
+
 
 export default function EggItem(props){
 
@@ -30,8 +32,8 @@ export default function EggItem(props){
     }
 
     return (
-        <Fragment>
+        <div>
             {eggRender()}
-        </Fragment>
+        </div>
     )
 }

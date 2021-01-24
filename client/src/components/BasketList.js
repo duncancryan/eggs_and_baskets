@@ -22,13 +22,13 @@ export default class BasketList extends Component {
     // Conditional Rendering (for the time being)
     displayState(){
         const basketNodes = this.props.baskets.map(basket => {
-            return <BasketItem key={basket._id} name={basket.name} eggs={basket.eggs} />
+            return <BasketItem key={basket._id} name={basket.name} eggs={basket.eggs} incoming={this.props.incomingEggID} />
         })
         const afterSort = this.state.sortedBaskets.map(basket => {
-            return <BasketItem key={basket._id} name={basket.name} eggs={basket.eggs} />
+            return <BasketItem key={basket._id} name={basket.name} eggs={basket.eggs} incoming={this.props.incomingEggID} />
         })
         const afterFilter = this.state.filteredBaskets.map(basket => {
-            return <BasketItem key={basket._id} name={basket.name} eggs={basket.eggs} />
+            return <BasketItem key={basket._id} name={basket.name} eggs={basket.eggs} incoming={this.props.incomingEggID} />
         })
         if (this.state.sorted && this.state.filtered){
             return afterFilter;

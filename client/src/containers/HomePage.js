@@ -12,8 +12,12 @@ export default class HomePage extends Component {
         // State
         this.state = {
             eggs: [],
-            baskets: []
+            baskets: [],
+            dragID: ""
         }
+
+        // Binds
+        this.handleDragStart = this.handleDragStart.bind(this);
     }
 
     // Methods
@@ -29,16 +33,20 @@ export default class HomePage extends Component {
             .then(data => this.setState({ baskets: data }));
     }
 
+    handleDragStart(data){
+        this.setState({dragID: data})
+    }
+
 
     render(){
         return (
             <Fragment>
                 <div>
                     <h2>Loose Eggs</h2>
-                    <EggList eggs={this.state.eggs}/>
+                    <EggList eggs={this.state.eggs} DragStart={this.handleDragStart}/>
                 </div>
                 <div>
-                    <BasketList baskets={this.state.baskets}/>
+                    <BasketList baskets={this.state.baskets} incomingEggID={this.state.dragID}/>
                 </div>
                 <a href="/add">
                     <button>Add Basket</button>
