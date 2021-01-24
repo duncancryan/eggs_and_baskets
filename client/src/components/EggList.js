@@ -57,7 +57,7 @@ export default class EggList extends Component {
 
     handleDragStart(event){
         const id = event.target.id;
-
+        console.log(event);
         this.props.DragStart(id);
     }
 
