@@ -1,11 +1,8 @@
 import React, { Fragment } from 'react';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
-import HomePage from '../containers/HomePage';
-import NavBar from '../components/NavBar';
-import AddEgg from '../components/AddEgg';
+import HomePage from '../components/HomePage';
 import AddBasket from '../components/AddBasket';
-import UpdateEgg from '../components/UpdateEgg';
-import UpdateBasket from '../components/UpdateBasket';
+
 
 
 export default function MainRouter(){
@@ -15,7 +12,9 @@ export default function MainRouter(){
 
             <Fragment>
 
-                <HomePage />
+                <Switch>
+                <HomePage exact path="/" component={HomePage}/>
+                </Switch>
 
                 <Switch>
                     <Route exact path="/add" component={AddBasket}/>
