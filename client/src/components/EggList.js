@@ -31,13 +31,13 @@ export default class EggList extends Component {
 
     displayState(){
         const eggNodes = this.props.eggs.map(egg => {
-            return <EggItem key={egg._id} weight={egg.weight} laid={egg.laid} />
+            return <EggItem collapsed={false} key={egg._id} weight={egg.weight} laid={egg.laid} />
         })
         const afterSort = this.state.sortedEggs.map(egg => {
-            return <EggItem key={egg._id} weight={egg.weight} laid={egg.laid} />
+            return <EggItem collapsed={false} key={egg._id} weight={egg.weight} laid={egg.laid} />
         })
         const weightFiltered = this.state.filteredEggs.map(egg => {
-            return <EggItem key={egg._id} weight={egg.weight} laid={egg.laid} />
+            return <EggItem collapsed={false} key={egg._id} weight={egg.weight} laid={egg.laid} />
         })
         if (this.state.sorted && (!this.state.filteredByDate && !this.state.filteredByWeight)) {
             return afterSort;

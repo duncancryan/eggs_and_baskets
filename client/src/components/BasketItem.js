@@ -1,12 +1,12 @@
 import React from 'react';
-import EggList from './EggList';
+import BasketEggs from './BasketEggs';
 
 export default function BasketItem(props) {
 
     return (
         <div>
             <h4>{props.name}</h4>
-            <EggList eggs={props.eggs}/>
+            <BasketEggs eggs={props.eggs}/>
         </div>
     )
 }
