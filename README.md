@@ -12,3 +12,9 @@ npm run server:dev
 ```
 npm install
 npm start
+
+Prerequisites:
+- MongoDB
+- React
+- Node
+- Express
