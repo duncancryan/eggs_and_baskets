@@ -16,20 +16,19 @@ export default class BasketList extends Component {
         // Binds
         this.sortByName = this.sortByName.bind(this);
         this.filterByName = this.filterByName.bind(this);
-        this.handleCommon = this.handleCommon.bind(this);
     }
 
 
     // Conditional Rendering (for the time being)
     displayState(){
         const basketNodes = this.props.baskets.map(basket => {
-            return <BasketItem id={basket._id} name={basket.name} eggs={basket.eggs} />
+            return <BasketItem key={basket._id} name={basket.name} eggs={basket.eggs} />
         })
         const afterSort = this.state.sortedBaskets.map(basket => {
-            return <BasketItem id={basket._id} name={basket.name} eggs={basket.eggs} />
+            return <BasketItem key={basket._id} name={basket.name} eggs={basket.eggs} />
         })
         const afterFilter = this.state.filteredBaskets.map(basket => {
-            return <BasketItem id={basket._id} name={basket.name} eggs={basket.eggs} />
+            return <BasketItem key={basket._id} name={basket.name} eggs={basket.eggs} />
         })
         if (this.state.sorted && this.state.filtered){
             return afterFilter;
