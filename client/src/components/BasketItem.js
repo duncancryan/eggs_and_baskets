@@ -53,9 +53,10 @@ export default class BasketItem extends Component {
     async handleDrop(event) {
         console.log("drop", event);
         const eggService = new EggService;
-
+        const eggId = this.props.incoming;
+        await eggId;
          
-        eggService.getEggById(this.props.incoming)
+        eggService.getEggById(eggId)
         .then(data => this.setState({newEgg: data}))
 
         console.log("newEgg", this.state.newEgg);
@@ -66,6 +67,7 @@ export default class BasketItem extends Component {
         
         // basketService.updateBasket(props.id, payload);
         // eggService.deleteEggById(props.incoming)
+        
         // the code to remove the egg fro the egg collection and add it to this basket's egg
         // array will be contained here
 
