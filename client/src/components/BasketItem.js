@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
+import BasketService from '../helpers/basket_service';
+import EggService from '../helpers/egg_service';
 import BasketEggs from './BasketEggs';
 
 
 
 export default function BasketItem(props) {
+
+    const [eggs, setEggs] = useState(props.eggs);
 
     function handleDragEnter(event) {
         event.preventDefault();
@@ -17,8 +21,17 @@ export default function BasketItem(props) {
 
 
     function handleDrop(event) {
+        const eggService = new EggService;
+        const basketService = new BasketService
         console.log(event)
-        
+        let allEggs = [...eggs]
+        const newEgg = eggService.getEggById(props.incoming)
+        allEggs.push(newEgg);
+        setEggs(allEggs);
+        const payload = {}
+        payload.name = props.name;
+        payload.eggs = eggs
+        console.log(payload);
         // the code to remove the egg fro the egg collection and add it to this basket's egg
         // array will be contained here
 
