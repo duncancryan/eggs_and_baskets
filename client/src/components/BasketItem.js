@@ -1,52 +1,68 @@
-import React, { useState } from 'react';
+import React, { Component, useState } from 'react';
 import BasketService from '../helpers/basket_service';
 import EggService from '../helpers/egg_service';
 import BasketEggs from './BasketEggs';
 
 
 
-export default function BasketItem(props) {
+export default class BasketItem extends Component {
+    constructor(props){
+        super(props)
 
-    const [eggs, setEggs] = useState(props.eggs);
-    const [newEgg, setNewEgg] = useState()
+        // State
+        this.state ={
+            newEgg:{},
+            eggs: []
+        }
 
-    function handleDragEnter(event) {
+        this.handleDragEnter = this.handleDragEnter.bind(this);
+        this.handleDragOver = this.handleDragOver.bind(this);
+        this.buildPayload = this.buildPayload.bind(this);
+        this.handleDrop = this.handleDrop.bind(this);
+    }
+
+
+    
+
+    handleDragEnter(event) {
         event.preventDefault();
         return true;
     }
 
-    function handleDragOver(event) {
+    handleDragOver(event) {
         event.stopPropagation();
         event.preventDefault();
     }
 
 
-    function buildPayload(payloadEgg){
+    buildPayload(payloadEgg){
         const payload = {}
-        payload["name"] = props.name;
-        payload["eggs"] = eggs
+        payload["name"] = this.props.name;
+        payload["eggs"] = this.state.eggs
         console.log("payload", payload);
     }
 
-    function addEggtoEggs(){
-        let allEggs = [...eggs];
-        allEggs.push(newEgg)
-        console.log("allEggs", allEggs);
-        setEggs(allEggs);
-        console.log("eggs", eggs);
-    }
+    // addEggtoEggs(){
+    //     let allEggs = [...eggs];
+    //     allEggs.push(newEgg)
+    //     console.log("allEggs", allEggs);
+    //     setEggs(allEggs);
+    //     console.log("eggs", eggs);
+    // }
 
-    function handleDrop(event) {
+    async handleDrop(event) {
+        console.log("drop", event);
         const eggService = new EggService;
 
-        eggService.getEggById(String(props.incoming))
+         
+        eggService.getEggById(this.props.incoming)
+        .then(data => this.setState({newEgg: data}))
 
-        .then(data => setNewEgg(data))
-        console.log("newEgg", newEgg);
+        console.log("newEgg", this.state.newEgg);
 
-        addEggtoEggs();
+        // addEggtoEggs();
 
-        buildPayload();
+        // buildPayload();
         
         // basketService.updateBasket(props.id, payload);
         // eggService.deleteEggById(props.incoming)
@@ -55,11 +71,12 @@ export default function BasketItem(props) {
 
         // there also needs to be some logic to reset the state in HomePage
     }
-
-    return (
-        <div onDragEnter={handleDragEnter} onDrop={handleDrop} onDragOver={handleDragOver}>
-            <h4>{props.name}</h4>
-            <BasketEggs eggs={props.eggs} />
-        </div>
-    )
+    render(){
+        return (
+            <div onDragEnter={this.handleDragEnter} onDrop={this.handleDrop} onDragOver={this.handleDragOver}>
+                <h4>{this.props.name}</h4>
+                <BasketEggs eggs={this.props.eggs} />
+            </div>
+        )
+    }
 }
