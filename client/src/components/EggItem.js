@@ -4,7 +4,8 @@ export default function EggItem(props){
 
     return (
         <div>
-            I am an egg
+            <p>Weight: {props.weight}g</p>
+            <p>Laid on: {props.laid}</p>
         </div>
     )
 }
