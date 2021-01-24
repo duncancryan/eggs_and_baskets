@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
-import HomePage from '../components/HomePage';
+import HomePage from '../containers/HomePage';
 import AddBasket from '../components/AddBasket';
 
 

@@ -3,7 +3,7 @@ import React from 'react';
 export default function AddBasket() {
     return (
         <div>
-            I am the AddBasket
+            <h2>Add a Basket</h2>
         </div>
     )
 }
