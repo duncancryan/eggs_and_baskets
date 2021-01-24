@@ -31,7 +31,8 @@ export default function BasketItem(props) {
         const payload = {}
         payload.name = props.name;
         payload.eggs = eggs
-        console.log(payload);
+        basketService.updateBasket(props.id, payload);
+        eggService.deleteEggById(props.incoming)
         // the code to remove the egg fro the egg collection and add it to this basket's egg
         // array will be contained here
 
