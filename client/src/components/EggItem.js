@@ -4,7 +4,7 @@ import styled from 'styled-components'
 
 export default function EggItem(props){
 
-    const [collapsed, setCollapsed] = useState(props.collapsed)
+    const [collapsed, setCollapsed] = useState(props.collapsed);
     
 
     const eggRender = function(){

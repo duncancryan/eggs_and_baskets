@@ -8,6 +8,7 @@ import BasketEggs from './BasketEggs';
 export default function BasketItem(props) {
 
     const [eggs, setEggs] = useState(props.eggs);
+    const [newEgg, setNewEgg] = useState()
 
     function handleDragEnter(event) {
         event.preventDefault();
@@ -20,19 +21,35 @@ export default function BasketItem(props) {
     }
 
 
+    function buildPayload(payloadEgg){
+        const payload = {}
+        payload["name"] = props.name;
+        payload["eggs"] = eggs
+        console.log("payload", payload);
+    }
+
+    function addEggtoEggs(){
+        let allEggs = [...eggs];
+        allEggs.push(newEgg)
+        console.log("allEggs", allEggs);
+        setEggs(allEggs);
+        console.log("eggs", eggs);
+    }
+
     function handleDrop(event) {
         const eggService = new EggService;
-        const basketService = new BasketService
-        console.log(event)
-        let allEggs = [...eggs]
-        const newEgg = eggService.getEggById(props.incoming)
-        allEggs.push(newEgg);
-        setEggs(allEggs);
-        const payload = {}
-        payload.name = props.name;
-        payload.eggs = eggs
-        basketService.updateBasket(props.id, payload);
-        eggService.deleteEggById(props.incoming)
+
+        eggService.getEggById(String(props.incoming))
+
+        .then(data => setNewEgg(data))
+        console.log("newEgg", newEgg);
+
+        addEggtoEggs();
+
+        buildPayload();
+        
+        // basketService.updateBasket(props.id, payload);
+        // eggService.deleteEggById(props.incoming)
         // the code to remove the egg fro the egg collection and add it to this basket's egg
         // array will be contained here
 
