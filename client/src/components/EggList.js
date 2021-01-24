@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import EggItem from './EggItem';
 
 export default class EggList extends Component {
@@ -10,12 +10,22 @@ export default class EggList extends Component {
             sortedEggs: [],
             sorted: false,
             filteredEggs: [],
-            filtered: false
+            filteredByWeight: false,
+            weightLow: 0,
+            weightHigh: 10000,
+            filteredByDate: false,
+            dateHigh: new Date(),
+            dateLow: new Date(1, 1, 1)
         }
 
         // Binds
         this.sortByDateLaid = this.sortByDateLaid.bind(this);
         this.sortByWeight = this.sortByWeight.bind(this);
+        this.filterByWeight = this.filterByWeight.bind(this);
+        this.handleHighWeight = this.handleHighWeight.bind(this);
+        this.handleLowWeight = this.handleLowWeight.bind(this);
+        this.handleLowDate = this.handleLowDate.bind(this);
+        this.handleHighDate = this.handleHighDate.bind(this);
 
     }
 
@@ -26,8 +36,14 @@ export default class EggList extends Component {
         const afterSort = this.state.sortedEggs.map(egg => {
             return <EggItem key={egg._id} weight={egg.weight} laid={egg.laid} />
         })
-        if (this.state.sorted && !this.state.filtered) {
+        const weightFiltered = this.state.filteredEggs.map(egg => {
+            return <EggItem key={egg._id} weight={egg.weight} laid={egg.laid} />
+        })
+        if (this.state.sorted && (!this.state.filteredByDate && !this.state.filteredByWeight)) {
             return afterSort;
+        }
+        if (this.state.filteredByWeight){
+            return weightFiltered;
         }
         return eggNodes;
     }
@@ -70,16 +86,69 @@ export default class EggList extends Component {
         this.setState({ sorted: true })
     }
 
+    filterByWeight(){
+        const toFilter = [...this.props.eggs];
+        let filtered = toFilter.filter(egg => {
+          return egg.weight > this.state.weightLow && egg.weight < this.state.weightHigh;
+        })
+        this.setState({filteredEggs: filtered})
+    }
+
+    handleHighWeight(input){
+        this.setState({weightHigh: input.target.value})
+        this.setState({ filteredByWeight: true })
+        this.filterByWeight();
+        if (!input.target.value){
+            this.setState({weightHigh: 10000})
+            this.filterByWeight();
+        }
+    }
+    handleLowWeight(input){
+        this.setState({weightLow: input.target.value})
+        this.setState({filteredByWeight: true})
+        this.filterByWeight();
+        if (!input.target.value) {
+            this.setState({ weightHigh: 0 })
+            this.filterByWeight();
+        }
+    }
+
+    handleHighDate(input){
+        let inputDate = input.target.value
+        let parameterized = inputDate.split("-").reverse();
+        if (!input.target.value){
+            this.setState({dateHigh: new Date()})
+        } else {
+        this.setState({dateHigh: new Date(parameterized[2], parameterized[1], parameterized[0])})
+        }
+    }
+    handleLowDate(input){
+        let inputDate = input.target.value
+        let parameterized = inputDate.split("-").reverse();
+        if (!input.target.value) {
+            this.setState({ dateLow: new Date(1,1,1) })
+        } else {
+        this.setState({ dateHigh: new Date(parameterized[2], parameterized[1], parameterized[0]) })        
+        }
+    }
+
 
     // Render
     render(){
         return (
-            <div>
-                <input type="number" placeholder="Filter by weight above..." onChange={this.filterByWeight} />
-                <button onClick={this.sortByWeight}>Sort by Weight</button>
+            <Fragment>
+                <div>
+                <input type="number" placeholder="Filter by weight above..." onChange={this.handleLowWeight} />
+                <input type="number" placeholder="Filter by weight below..." onChange={this.handleHighWeight} />
+                </div>
+                <div>
+                <input type="date" placeholder="Filter by date after..." onChange={this.handleLowDate} />
+                <input type="date" placeholder="Filter by date before..." onChange={this.handleHighDate} />
+                </div>
+              <button onClick={this.sortByWeight}>Sort by Weight</button>
                 <button onClick={this.sortByDateLaid}>Sort by Date Laid</button>
                 {this.displayState()}
-            </div>
+            </Fragment>
         )
         }
     
