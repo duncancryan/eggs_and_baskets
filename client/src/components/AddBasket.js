@@ -28,7 +28,7 @@ export default function AddBasket() {
     return (
         <div>
             <h2>Add a Basket</h2>
-            <form onSubmit={formHandler} href="/">
+            <form onSubmit={formHandler}>
                 <input type="text" placeholder="Type the name of the basket here" onChange={handleTextChange}></input>
                 <input type="submit" value="Create"></input>
             </form>
