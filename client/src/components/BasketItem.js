@@ -18,6 +18,7 @@ export default function BasketItem(props) {
 
     function handleDrop(event) {
         console.log(event)
+        
         // the code to remove the egg fro the egg collection and add it to this basket's egg
         // array will be contained here
 
